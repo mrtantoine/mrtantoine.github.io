@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Dragon Shield Security | Accueil</title>
+
+<!-- Stylesheets -->
+<link href="assets/css/bootstrap.css" rel="stylesheet">
+<link href="assets/css/style.css" rel="stylesheet">
+<link href="assets/css/responsive.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+<link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
+
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+</head>
+
+<body>
+
+<div class="page-wrapper">
+	<!-- Main Header -->
+	<header class="main-header">
+		
+		<!-- Header Lower -->
+		<div class="header-lower">
+			<div class="auto-container">
+				<div class="inner-container">
+					<div class="d-flex justify-content-between align-items-center flex-wrap">
+						
+						<div class="logo-box">
+							<div class="logo"><a href="home.html"><img src="assets/images/logo.png" alt="" title=""></a></div>
+						</div>
+
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--End Header Lower-->
+	
+	</header>
+	<!-- End Main Header -->
+	
+	<!-- Banner One -->
+	<section class="banner-one" style="background-image:url(assets/images/background/1.jpg)">
+		<div class="robot">
+			<script type="module" src="https://unpkg.com/@splinetool/viewer@1.3.5/build/spline-viewer.js"></script>
+			<spline-viewer url="https://prod.spline.design/AqtlWJlNbO-ZMkvz/scene.splinecode"></spline-viewer>
+		</div>
+		<div class="auto-container">
+			<!-- Content Column -->
+			<div class="banner-one_content">
+				<div class="banner-one_content-inner">
+					<h1 class="banner-one_heading"><br><br></h1>
+					<div class="lower-box d-flex justify-content-between align-items-center flex-wrap">
+						<div class="banner-one_text">Notre équipe visionnaire crée des <br> expériences transformatrices</div>
+						<div class="banner-one_text-two">Améliore le potentiel et <br> favoriser la prospérité</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner One -->
+
+	<section class="logo-banner">
+		<div class="logo-scroll-container">
+			<!-- Original logos -->
+			<img src="assets/images/LOGOS/CEH.png" alt="CEH Logo">
+			<img src="assets/images/LOGOS/CHFI.jpg" alt="CHFI Logo">
+			<img src="assets/images/LOGOS/ISO27001.png" alt="ISO 27001 Logo">
+			<img src="assets/images/LOGOS/logo_expertcyber.webp" alt="Expert Cyber Logo">
+			<img src="assets/images/LOGOS/ENE_LOGO.png" alt="ENE Logo">
+			<img src="assets/images/LOGOS/net-zero.png" alt="Net Zero Logo">
+			<img src="assets/images/LOGOS/Bontaz.png" alt="Net Zero Logo">
+			<img src="assets/images/LOGOS/partenaire-defense.png" alt="Defense Partner Logo">
+			<img src="assets/images/LOGOS/CEH.png" alt="CEH Logo">
+    		<img src="assets/images/LOGOS/CHFI.jpg" alt="CHFI Logo">
+			<img src="assets/images/LOGOS/ISO27001.png" alt="ISO 27001 Logo">
+			<img src="assets/images/LOGOS/logo_expertcyber.webp" alt="Expert Cyber Logo">
+			<img src="assets/images/LOGOS/ENE_LOGO.png" alt="ENE Logo">
+			<img src="assets/images/LOGOS/net-zero.png" alt="Net Zero Logo">
+			<img src="assets/images/LOGOS/partenaire-defense.png" alt="Defense Partner Logo">
+			<img src="assets/images/LOGOS/Bontaz.png" alt="Net Zero Logo">
+		</div>
+	</section>
+	
+
+	<section class="rss-one" style="background-image:url(assets/images/background/2.jpg)">
+		<div class="auto-container">
+			<!-- Sec Title -->
+			<div class="sec-title">
+				<h2 class="sec-title_heading">Actualité</h2>
+				<div class="sec-title_icon"><img src="assets/images/icons/icon-2.png" alt="" /></div>
+			</div>
+			<div class="row clearfix" id="rss-content">
+				<!-- RSS items will be injected here by JavaScript -->
+			</div>
+		</div>
+	</section>
+	
+	<script>
+		async function fetchRSSFeed() {
+			const rssUrl = 'https://feeds.feedburner.com/HaveIBeenPwnedLatestBreaches';
+	
+			try {
+				const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`);
+				const data = await response.json();
+				const parser = new DOMParser();
+				const xml = parser.parseFromString(data.contents, "application/xml");
+				displayRSSContent(xml);
+			} catch (error) {
+				console.error('Error fetching RSS feed:', error);
+			}
+		}
+	
+		function displayRSSContent(xml) {
+			const rssContent = document.getElementById('rss-content');
+			const items = xml.querySelectorAll("item");
+	
+			items.forEach((item, index) => {
+				if (index < 5) { // Limiter à 5 éléments
+					const title = item.querySelector("title").textContent;
+					const link = item.querySelector("link").textContent;
+					const category = item.querySelector("category") ? item.querySelector("category").textContent : "Données volées";
+	
+					const rssBlock = document.createElement('div');
+					rssBlock.classList.add('rss-block_one');
+	
+					rssBlock.innerHTML = `
+						<div class="rss-block_one-inner">
+							<div class="rss-block_one-title">${category}</div>
+							<h5 class="rss-block_one-heading">
+								<a href="${link}" target="_blank">${title}</a>
+							</h5>
+							<a href="${link}" target="_blank" class="rss-block_one-arrow fa-solid fa-arrow-right fa-fw"></a>
+						</div>
+					`;
+	
+					rssContent.appendChild(rssBlock);
+				}
+			});
+		}
+	
+		// Appel de la fonction pour charger et afficher le flux RSS
+		fetchRSSFeed();
+	</script>
+	
+	
+	<!-- Main Footer -->
+	<footer class="main-footer">
+		<div class="footer-bottom">
+			<div class="auto-container">
+				<div class="d-flex justify-content-between align-items-center flex-wrap">
+					<div class="footer_copyright">&copy; 2024 Dragon Shield Security</div>
+			<a class="backtop down-box scroll-to-target" data-target=".page-wrapper">
+            <i class="fa-solid fa-arrow-up"></i>
+			</a>
+				</div>
+			</div>
+		</div>
+			</div>
+		</div>
+	</footer>
+	<!-- End Main Footer -->
+	
+</div>
+<!-- End PageWrapper -->
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/appear.js"></script>
+<script src="assets/js/wow.js"></script>
+<script src="assets/js/swiper.min.js"></script>
+<script src="assets/js/odometer.js"></script>
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/SplitText.min.js"></script>
+<script src="assets/js/ScrollTrigger.min.js"></script>
+<script src="assets/js/ScrollToPlugin.min.js"></script>
+<script src="assets/js/ScrollSmoother.min.js"></script>
+<script src="assets/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+<script src="js/respond.js"></script>
+
+</body>
+</html>
